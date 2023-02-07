@@ -23,6 +23,11 @@ final class SecondVC: UIViewController {
         
     }
     
+    private func postNotification() {
+        NotificationCenter.default.post(name: NSNotification.Name(notificationCenterPassDataKey),
+                                        object: enterDataForNotificationCenterTF.text)
+    }
+    
     @IBAction func transferDataWithProtocolTapped(_ sender: Any) {
         if enterDataForProtocolTF.text!.isEmpty {
             alertView()
@@ -34,7 +39,13 @@ final class SecondVC: UIViewController {
     }
     
     @IBAction func transferDataWithNotificationCenterTapped(_ sender: Any) {
+        if enterDataForNotificationCenterTF.text!.isEmpty {
+            alertView()
+            return
+        }
         
+        postNotification()
+        dismiss()
     }
     
     @IBAction func transferDataWithClosureTapped(_ sender: Any) {

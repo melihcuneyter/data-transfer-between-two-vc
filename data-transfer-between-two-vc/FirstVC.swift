@@ -7,6 +7,8 @@
 
 import UIKit
 
+let notificationCenterPassDataKey = "passDataKey"
+
 final class FirstVC: UIViewController {
     @IBOutlet weak var transferredDataWithProtocolTF: UITextField!
     @IBOutlet weak var transferredDataWithNotificationCenterTF: UITextField!
@@ -14,7 +16,18 @@ final class FirstVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(transferredDataWithNotificationCenter(_:)),
+                                               name: Notification.Name(rawValue: notificationCenterPassDataKey),
+                                               object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc  func transferredDataWithNotificationCenter(_ notification: NSNotification) {
+        transferredDataWithNotificationCenterTF.text = (notification.object as! String)
     }
     
     // MARK: - Actions
