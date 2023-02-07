@@ -17,6 +17,7 @@ final class SecondVC: UIViewController {
     @IBOutlet weak var enterDataForClosureTF: UITextField!
     
     weak var delegate: TransferDataDelegate?
+    var transferData: ((_ toBeTransferData: String) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,13 @@ final class SecondVC: UIViewController {
     }
     
     @IBAction func transferDataWithClosureTapped(_ sender: Any) {
+        if enterDataForClosureTF.text!.isEmpty {
+            alertView()
+            return
+        }
         
+        guard let transferData = transferData else { return }
+        transferData(enterDataForClosureTF.text!)
+        dismiss()
     }
 }

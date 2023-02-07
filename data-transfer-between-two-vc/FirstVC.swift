@@ -39,6 +39,10 @@ final class FirstVC: UIViewController {
             transferredDataWithNotificationCenterTF.text = ""
             transferredDataWithClosureTF.text = ""
             
+            vc.transferData = {(toBeTransferredData) -> ()in
+                self.transferredDataWithClosureTF.text = toBeTransferredData
+            }
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
